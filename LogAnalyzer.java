@@ -3,6 +3,9 @@
  * 
  * @author David J. Barnes and Michael Kölling.
  * @version    2016.02.29
+ * 
+ * edited by author Ben Adelson
+ * version 2019.10.17
  */
 public class LogAnalyzer
 {
