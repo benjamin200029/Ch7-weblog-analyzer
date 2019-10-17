@@ -14,7 +14,7 @@ public class LogAnalyzer
     /**
      * Create an object to analyze hourly web accesses.
      */
-    public LogAnalyzer()
+    public LogAnalyzer(String filename)
     { 
         // Create the array object to hold the hourly
         // access counts.
@@ -22,6 +22,20 @@ public class LogAnalyzer
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
+    
+    /*
+     * Return the number of acceses recorded in the log file
+     */
+    public int numberOfAccesses()
+    {
+        int total = 0;
+        // Add the value in each element of hourCounts to total
+        for(int a = 1; a <= hourCounts.length;a++){
+            total = total + hourCounts.length;
+        }
+        return total;
+    }
+    
 
     /**
      * Analyze the hourly access data from the log file.
@@ -33,6 +47,55 @@ public class LogAnalyzer
             int hour = entry.getHour();
             hourCounts[hour]++;
         }
+    }
+    
+    /*
+     * returns the number of the busiest hours
+     * test returns 18 as the busiest Hour
+     */
+    public int busiestHour()
+    {
+       int busiestHour = 0;
+       for(int hour = 1; hour < hourCounts.length; hour++){
+           if(hourCounts[hour]> hourCounts[busiestHour]){
+               busiestHour = hour;
+            }
+        }
+        return busiestHour;
+    }
+    
+    /*
+     * returns the number of the least busy hour
+     * test returns 9 as the quietest Hour
+     */
+    public int quietestHour()
+    {
+       int quietestHour = 0;
+       for(int hour = 1; hour < hourCounts.length; hour++){
+           if(hourCounts[hour]< hourCounts[quietestHour]){
+               quietestHour = hour;
+            }
+        }
+        return quietestHour;
+    }
+    
+    /*
+     * returns the number of the least busy hour
+     * test returns 17 as the busiestTwoHourPeriod
+     */
+    public int busiestTwoHourPeriod()
+    {
+       int busiestTwoHourPeriod = 0;
+       int busiestTwoHourPeriodCount = 0;
+
+       for(int hour = 1; hour < hourCounts.length-1; hour++){
+           int periodCount = hourCounts[hour]+hourCounts[hour+1];
+           if(periodCount > busiestTwoHourPeriodCount){
+               busiestTwoHourPeriod = hour;
+               busiestTwoHourPeriodCount = periodCount;
+            }
+        }
+        return busiestTwoHourPeriod;
     }
 
     /**
