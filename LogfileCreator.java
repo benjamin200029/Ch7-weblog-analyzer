@@ -62,18 +62,34 @@ public class LogfileCreator
     public LogEntry createEntry()
     {  
         // was 2016
-        int year = 2011;
-        int month = 1 + rand.nextInt(12);
+        int year = 2010;
+        int month = 1;
+        // + rand.nextInt(12)
         // Avoid the complexities of days-per-month.
-        int day = 1 + rand.nextInt(28);
-        int hour = rand.nextInt(24);
+        int day = 1;
+        //rand.nextInt(28)
+        int hour = 0;
+        //rand.nextInt(24)
         int minute = rand.nextInt(60);
         // added a for statement
-        for(int a=1; year < 2015; a++){
-            year = year + 1;
-            day = day + (1 + rand.nextInt(28));
-            hour = hour + rand.nextInt(24);
+        while(year<2016){
             minute = minute + rand.nextInt(60);
+            if(minute>60){
+                minute = minute - 60;
+                hour = hour + 1;
+                if(hour > 24){
+                    hour = hour - 24;
+                    day = day + 1;
+                    if(day > 28){
+                        day = day - 28;
+                        month = month + 1;
+                        if(month > 12){
+                            month = month - 12;
+                            year = year + 1;
+                        }
+                    }
+                }
+            } 
         }
         return new LogEntry(year, month, day, hour, minute);
 
