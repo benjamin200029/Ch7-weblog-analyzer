@@ -8,6 +8,9 @@ import java.util.Calendar;
  * 
  * @author David J. Barnes and Michael Kölling.
  * @version    2016.02.29
+ * 
+ * edited by author Benjamin Adelson
+ * version 2019.10.20
  */
 public class LogEntry implements Comparable<LogEntry>
 {
@@ -79,6 +82,33 @@ public class LogEntry implements Comparable<LogEntry>
     public int getMinute()
     {
         return dataValues[MINUTE];
+    }
+    
+    /**
+     * Return the Day of the Week.
+     * @return The day field from the log line.
+     */
+    public int getDay()
+    {
+        return dataValues[DAY];
+    }
+    
+    /**
+     * Return the Day of the Week.
+     * @return The day field from the log line.
+     */
+    public int getMonth()
+    {
+        return dataValues[MONTH];
+    }
+    
+    /**
+     * Return the Day of the Week.
+     * @return The day field from the log line.
+     */
+    public int getYear()
+    {
+        return dataValues[YEAR];
     }
     
     /**

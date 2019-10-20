@@ -11,6 +11,10 @@ public class LogAnalyzer
 {
     // Where to calculate the hourly access counts.
     private int[] hourCounts;
+    // Where to calculate the day of the week.
+    private int[] dayCounts;
+    // Where to calculate the month of the year.
+   // private int[] monthCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
 
@@ -22,6 +26,7 @@ public class LogAnalyzer
         // Create the array object to hold the hourly
         // access counts.
         hourCounts = new int[24];
+        dayCounts = new int[32];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
@@ -38,8 +43,16 @@ public class LogAnalyzer
         }
         return total;
     }
+    public int numberOfAccesses2()
+    {
+        int total2 = 0;
+        // Add the value in each element of hourCounts to total
+        for(int a = 1; a <= dayCounts.length;a++){
+            total2 = total2 + dayCounts.length;
+        }
+        return total2;
+    }
     
-
     /**
      * Analyze the hourly access data from the log file.
      */
@@ -49,6 +62,18 @@ public class LogAnalyzer
             LogEntry entry = reader.next();
             int hour = entry.getHour();
             hourCounts[hour]++;
+        }
+    }
+    
+    /**
+     * Analyze the day access data from the log file.
+     */
+    public void analyzeDayData()
+    {
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int day = entry.getDay();
+            dayCounts[day]++;
         }
     }
     
@@ -113,6 +138,20 @@ public class LogAnalyzer
             System.out.println(hour + ": " + hourCounts[hour]);
         }
     }
+    
+    /**
+     * Print the hourly counts.
+     * These should have been set with a prior
+     * call to analyzeHourlyData.
+     */
+    public void printDayCounts()
+    {
+        System.out.println("Day: Count");
+        for(int day = 0; day < dayCounts.length; day++) {
+            System.out.println(day + ": " + dayCounts[day]);
+        }
+    }
+    
     
     /**
      * Print the lines of data read by the LogfileReader
