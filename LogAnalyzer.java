@@ -14,7 +14,7 @@ public class LogAnalyzer
     // Where to calculate the day of the week.
     private int[] dayCounts;
     // Where to calculate the month of the year.
-   // private int[] monthCounts;
+    private int[] monthCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
 
@@ -27,6 +27,7 @@ public class LogAnalyzer
         // access counts.
         hourCounts = new int[24];
         dayCounts = new int[32];
+        monthCounts = new int[13];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
@@ -43,7 +44,11 @@ public class LogAnalyzer
         }
         return total;
     }
-    public int numberOfAccesses2()
+    
+    /*
+     * Return the number of accesses recorded in the log file
+     */
+    public int totalAccessesPerDay()
     {
         int total2 = 0;
         // Add the value in each element of hourCounts to total
@@ -51,6 +56,20 @@ public class LogAnalyzer
             total2 = total2 + dayCounts.length;
         }
         return total2;
+    }
+    
+    /*
+     * Return the average number of accesses recorded in the log file
+     */
+    public int averageAccessesPerMonth()
+    {
+        int total3 = 0;
+        // Add the value in each element of hourCounts to total
+        for(int a = 1; a <= monthCounts.length;a++){
+            total3 = total3 + monthCounts.length;
+        }
+        total3 = total3/12;
+        return total3;
     }
     
     /**
@@ -77,6 +96,18 @@ public class LogAnalyzer
         }
     }
     
+    /**
+     * Analyze the day access data from the log file.
+     */
+    public void analyzeMonthData()
+    {
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int month = entry.getMonth();
+            monthCounts[month]++;
+        }
+    }
+    
     /*
      * returns the number of the busiest hours
      * test returns 18 as the busiest Hour
@@ -93,6 +124,34 @@ public class LogAnalyzer
     }
     
     /*
+     * returns the number of the busiest days
+     */
+    public int busiestDay()
+    {
+       int busiestDay = 0;
+       for(int day = 1; day < dayCounts.length; day++){
+           if(dayCounts[day]> dayCounts[busiestDay]){
+               busiestDay = day;
+            }
+        }
+        return busiestDay;
+    }
+    
+    /*
+     * returns the number of the busiest months
+     */
+    public int busiestMonth()
+    {
+       int busiestMonth = 0;
+       for(int month = 1; month < monthCounts.length; month++){
+           if(monthCounts[month]> monthCounts[busiestMonth]){
+               busiestMonth = month;
+            }
+        }
+        return busiestMonth;
+    }
+    
+    /*
      * returns the number of the least busy hour
      * test returns 9 as the quietest Hour
      */
@@ -105,6 +164,34 @@ public class LogAnalyzer
             }
         }
         return quietestHour;
+    }
+    
+    /*
+     * returns the number of the least busy day
+     */
+    public int quietestDay()
+    {
+       int quietestDay = 0;
+       for(int day = 1; day < dayCounts.length; day++){
+           if(dayCounts[day]< dayCounts[quietestDay]){
+               quietestDay = day;
+            }
+        }
+        return quietestDay;
+    }
+    
+    /*
+     * returns the number of the least busy month
+     */
+    public int quietestMonth()
+    {
+       int quietestMonth = 0;
+       for(int month = 1; month < monthCounts.length; month++){
+           if(monthCounts[month]< monthCounts[quietestMonth]){
+               quietestMonth = month;
+            }
+        }
+        return quietestMonth;
     }
     
     /*
@@ -140,15 +227,28 @@ public class LogAnalyzer
     }
     
     /**
-     * Print the hourly counts.
+     * Print the days counts.
      * These should have been set with a prior
-     * call to analyzeHourlyData.
+     * call to analyzeDaysData.
      */
     public void printDayCounts()
     {
         System.out.println("Day: Count");
         for(int day = 0; day < dayCounts.length; day++) {
             System.out.println(day + ": " + dayCounts[day]);
+        }
+    }
+    
+    /**
+     * Print the month counts.
+     * These should have been set with a prior
+     * call to analyzeMonthData.
+     */
+    public void printMonthCounts()
+    {
+        System.out.println("Month: Count");
+        for(int month = 0; month < monthCounts.length; month++) {
+            System.out.println(month + ": " + monthCounts[month]);
         }
     }
     

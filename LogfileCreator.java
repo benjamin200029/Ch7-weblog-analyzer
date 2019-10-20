@@ -6,6 +6,10 @@ import java.util.*;
  * 
  * @author David J. Barnes and Michael Kölling
  * @version    2016.02.29
+ * 
+ * edited by @author Benjamin Adelson
+ * version 2019.10.20
+ * 
  */
 public class LogfileCreator
 {
@@ -56,14 +60,23 @@ public class LogfileCreator
      * @return A log entry containing random data.
      */
     public LogEntry createEntry()
-    {
-        int year = 2016;
+    {  
+        // was 2016
+        int year = 2011;
         int month = 1 + rand.nextInt(12);
         // Avoid the complexities of days-per-month.
         int day = 1 + rand.nextInt(28);
         int hour = rand.nextInt(24);
         int minute = rand.nextInt(60);
+        // added a for statement
+        for(int a=1; year < 2015; a++){
+            year = year + 1;
+            day = day + (1 + rand.nextInt(28));
+            hour = hour + rand.nextInt(24);
+            minute = minute + rand.nextInt(60);
+        }
         return new LogEntry(year, month, day, hour, minute);
-    }
+
+}
 
 }
