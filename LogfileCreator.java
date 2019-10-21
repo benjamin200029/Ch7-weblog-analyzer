@@ -61,6 +61,10 @@ public class LogfileCreator
      */
     public LogEntry createEntry()
     {  
+        // int [] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+        // int day = 1 + rand.nextInt(daysInMonth[month-1]);
+        // everything else was untounched
+        
         // was 2016
         int year = 2010;
         int month = 1;
